@@ -40,7 +40,7 @@ const TodoItem = ({ item }) => {
       )}
 
       {item.todoStatus === "ACTIVE" && (
-        <div className="flex gap-1 text-xs sm:text-base h-fit w-fit absolute right-0">
+        <div className="flex gap-2 sm:gap-1 text-xs sm:text-base h-fit w-fit absolute right-0">
           <BiSolidEdit
             onClick={(e) => {
               setEditStatus(!editStatus);

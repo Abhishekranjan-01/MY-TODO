@@ -24,6 +24,7 @@ function reducer(todoList, action) {
   } else if (action.name === "LOAD_PREVIOUS_TODO_LIST") {
     newTodoList = action.payload;
   }
+  localStorage.setItem("UNIQUE_TODO_LIST", JSON.stringify(newTodoList));
   return newTodoList;
 }
 
@@ -47,7 +48,7 @@ const CrudContainer = () => {
 
     setInitialRender(false);
   }
-  localStorage.setItem("UNIQUE_TODO_LIST", JSON.stringify(TodoList));
+
   // localStorage.removeItem("UNIQUE_TODO_LIST");
 
   return (
