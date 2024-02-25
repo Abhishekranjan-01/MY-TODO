@@ -62,7 +62,7 @@ const TodoItem = ({ item }) => {
             onClick={(e) => {
               if (editStatus == true) {
                 setEditStatus(false);
-                console.log(todoEditedNameRef.current.value);
+
                 dispatchTodoList({
                   name: "EDITED_TODO",
                   payload: {
