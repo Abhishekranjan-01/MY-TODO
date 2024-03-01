@@ -1,6 +1,10 @@
 const addTodo = (todoList, action) => {
   return [action.payload, ...todoList];
 };
+const deleteTodo = (todoList, action) =>
+  todoList.filter(
+    (todoItem) => todoItem.UNIQUE_TODO_ID !== action.UNIQUE_TODO_ID
+  );
 const editedTodo = (todoList, payload) => {
   todoList.forEach((item) => {
     if (item.UNIQUE_TODO_ID === payload.UNIQUE_TODO_ID) {
@@ -26,6 +30,8 @@ function reducer(todoList, action) {
 
   if (action.name === "ADD_TODO") {
     newTodoList = addTodo(todoList, action);
+  } else if (action.name === "DELETE_TODO") {
+    newTodoList = deleteTodo(todoList, action.payload);
   } else if (action.name === "EDITED_TODO") {
     newTodoList = editedTodo(todoList, action.payload);
   } else if (action.name === "COMPLETED_TODO") {
