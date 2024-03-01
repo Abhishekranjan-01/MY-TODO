@@ -7,7 +7,7 @@ const Summary = ({ currentDisplay, setCurrentDisplay }) => {
   const activeTodos = countActiveTodo(todoList);
   return (
     <>
-      <li className="relative sm:-top-2 list-none bg-[#F8F8FF] rounded-md flex justify-between w-full text-base max-[380px]:text-sm sm:text-lg text-gray-950 font-bold px-1 sm:px-2 py-0 sm:py-1 outline-none border-b border-b-gray-400">
+      <li className="relative sm:-top-2 list-none bg-[#F8F8FF] rounded-md flex justify-between w-full text-base max-[380px]:text-sm sm:text-lg text-gray-950 d px-1 sm:px-2 py-0 sm:py-1 outline-none border-b border-b-gray-400">
         <div className="">{activeTodos} items left</div>
         <div className="flex flex-row  justify-center gap-2 sm:gap-8">
           <button
