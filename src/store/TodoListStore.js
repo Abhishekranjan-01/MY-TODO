@@ -20,6 +20,24 @@ const completedTodo = (todoList, action) => {
 
   return [...newTodoList];
 };
+
+function reducer(todoList, action) {
+  let newTodoList = todoList;
+
+  if (action.name === "ADD_TODO") {
+    newTodoList = addTodo(todoList, action);
+  } else if (action.name === "EDITED_TODO") {
+    newTodoList = editedTodo(todoList, action.payload);
+  } else if (action.name === "COMPLETED_TODO") {
+    newTodoList = completedTodo(todoList, action.payload);
+  } else if (action.name === "CLEAR_ALL") {
+    newTodoList = [];
+  } else if (action.name === "LOAD_PREVIOUS_TODO_LIST") {
+    newTodoList = action.payload;
+  }
+  localStorage.setItem("UNIQUE_TODO_LIST", JSON.stringify(newTodoList));
+  return newTodoList;
+}
 const countActiveTodo = (todoList) => {
   let count = 0;
   todoList.forEach((item) => {
@@ -40,4 +58,4 @@ const countCompletedTodo = (todoList) => {
   return count;
 };
 export { completedTodo, countActiveTodo, countCompletedTodo, editedTodo };
-export default addTodo;
+export default reducer;
