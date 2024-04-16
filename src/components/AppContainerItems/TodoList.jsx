@@ -11,16 +11,22 @@ const TodoList = () => {
         return (
           <>
             {item.todoStatus === "ACTIVE" && currentDisplay === "ACTIVE" && (
-              <TodoItem key={item.UNIQUE_TODO_ID} item={item} />
+              <div key={item.UNIQUE_TODO_ID}>
+                <TodoItem item={item} />
+              </div>
             )}
 
             {item.todoStatus === "COMPLETED" &&
               currentDisplay === "COMPLETED" && (
-                <TodoItem key={item.UNIQUE_TODO_ID} item={item} />
+                <div key={item.UNIQUE_TODO_ID}>
+                  <TodoItem item={item} />
+                </div>
               )}
 
             {currentDisplay === "ALL" && (
-              <TodoItem key={item.UNIQUE_TODO_ID} item={item} />
+              <div key={item.UNIQUE_TODO_ID}>
+                <TodoItem item={item} />
+              </div>
             )}
           </>
         );

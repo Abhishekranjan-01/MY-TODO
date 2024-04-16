@@ -2,7 +2,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa6";
 const Footer = () => {
   return (
-    <footer className="absolute bottom-0 mx-auto flex flex-col justify-center w-full">
+    <footer className="mx-auto flex flex-col justify-center w-full">
       <h1 className="sm:text-lg text-xs font-poppins font-semibold text-center">
         For Any Query/Information
       </h1>

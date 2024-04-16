@@ -42,7 +42,7 @@ export const signUpUserWithEmailAndPassword = async (email, password) => {
     });
 };
 
-export const signInUserWithEmailAndPassword = (email, password) => {
+export const signInUserWithEmailAndPassword = async (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((UserCredential) => {
       console.log("Signed In");

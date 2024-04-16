@@ -8,7 +8,7 @@ import { useContext, useRef, useState } from "react";
 const TodoItem = ({ item }) => {
   const { dispatchTodoList } = useContext(TodoContext);
   const [editStatus, setEditStatus] = useState(false);
-  const todoEditedNameRef = useRef(" yy");
+  const todoEditedNameRef = useRef("");
 
   return (
     <div className="flex gap-4 border-b border-b-gray-400">
