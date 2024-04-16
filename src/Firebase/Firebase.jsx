@@ -1,9 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { createContext, useContext } from "react";
@@ -26,6 +28,10 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 const database = getDatabase(firebaseApp);
+const googleAuthProvider = new GoogleAuthProvider();
+// googleAuthProvider.addScope(
+//   "https://www.googleapis.com/auth/contacts.readonly"
+// );
 
 const FirbaseContext = createContext(null);
 export const useFirebase = () => useContext(FirbaseContext);
@@ -53,6 +59,25 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
     });
 };
 
+export function signInWithGoogle() {
+  signInWithPopup(auth, googleAuthProvider)
+    .then((result) => {
+      console.log(result.user);
+      console.log(getAdditionalUserInfo(result));
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+}
 export default function FirebaseProvider(props) {
   return (
     <FirbaseContext.Provider

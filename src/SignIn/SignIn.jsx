@@ -1,5 +1,8 @@
 import { useRef } from "react";
-import { signInUserWithEmailAndPassword } from "../Firebase/Firebase";
+import {
+  signInUserWithEmailAndPassword,
+  signInWithGoogle,
+} from "../Firebase/Firebase";
 
 export default function SignIn({ setCreateAccount }) {
   const emailRef = useRef("");
@@ -66,7 +69,11 @@ export default function SignIn({ setCreateAccount }) {
             href="#"
             className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
           >
-            <div className="flex px-5 justify-center w-full py-3">
+            <button
+              type="button"
+              onClick={signInWithGoogle}
+              className="flex px-5 justify-center w-full py-3 cursor-pointer"
+            >
               <div className="min-w-[30px]">
                 <svg className="h-6 w-6" viewBox="0 0 40 40">
                   <path
@@ -92,7 +99,7 @@ export default function SignIn({ setCreateAccount }) {
                   Sign in with Google
                 </h1>
               </div>
-            </div>
+            </button>
           </a>
           <div className="mt-4 flex items-center w-full text-center">
             <a

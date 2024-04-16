@@ -5,7 +5,7 @@ const BackgroundContainer = () => {
   return (
     <div className="relative flex justify-center">
       <button
-        className="absolute top-2 sm:top-4 text-xs font-semibold text-gray-200 px-1 sm:text-lg right-2 sm:right-3 bg-pink-600 rounded-md"
+        className="fixed top-2 sm:top-4 text-xs font-bold text-gray-200 px-1 sm:text-lg right-2 sm:right-3 bg-pink-600 rounded-md"
         type="button"
         onClick={() => {
           console.log("SignOut Done");

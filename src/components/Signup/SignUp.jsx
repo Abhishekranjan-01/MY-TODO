@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useFirebase } from "../../Firebase/Firebase";
+import { signInWithGoogle, useFirebase } from "../../Firebase/Firebase";
 
 export default function SignUp({ setCreateAccount }) {
   const emailRef = useRef("");
@@ -67,7 +67,11 @@ export default function SignUp({ setCreateAccount }) {
             href="#"
             className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
           >
-            <div className="flex px-5 justify-center w-full py-3">
+            <button
+              type="button"
+              className="flex px-5 justify-center w-full py-3"
+              onClick={signInWithGoogle}
+            >
               <div className="min-w-[30px]">
                 <svg className="h-6 w-6" viewBox="0 0 40 40">
                   <path
@@ -93,7 +97,7 @@ export default function SignUp({ setCreateAccount }) {
                   Sign Up with Google
                 </h1>
               </div>
-            </div>
+            </button>
           </a>
           <div className="mt-4 flex items-center w-full text-center">
             <a
