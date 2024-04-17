@@ -1,9 +1,11 @@
 import { useContext, useRef } from "react";
 import { TodoContext } from "./CrudContainer";
+import { addTodoOnFirebase, useFirebase } from "../../Firebase/Firebase";
 
 const InputTodo = () => {
   const todoNameRef = useRef("");
   const { dispatchTodoList, setCurrentDisplay } = useContext(TodoContext);
+  const firebase = useFirebase();
   return (
     <form
       action=""
@@ -14,15 +16,16 @@ const InputTodo = () => {
           todoNameRef.current.value = "";
           return 0;
         }
-
+        const todo = {
+          todoName: todoNameRef.current.value.trim(),
+          todoStatus: "ACTIVE",
+          UNIQUE_TODO_ID: Date.now(),
+        };
         dispatchTodoList({
           name: "ADD_TODO",
-          payload: {
-            todoName: todoNameRef.current.value.trim(),
-            todoStatus: "ACTIVE",
-            UNIQUE_TODO_ID: Date.now(),
-          },
+          payload: todo,
         });
+        // addTodoOnFirebase(firebase.userEmail, todo);
         todoNameRef.current.value = "";
         setCurrentDisplay("ALL");
       }}

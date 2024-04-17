@@ -1,3 +1,5 @@
+import { addTodoOnFirebase, userEmail } from "../Firebase/Firebase";
+
 const addTodo = (todoList, action) => {
   return [action.payload, ...todoList];
 };
@@ -41,7 +43,11 @@ function reducer(todoList, action) {
   } else if (action.name === "LOAD_PREVIOUS_TODO_LIST") {
     newTodoList = action.payload;
   }
-  localStorage.setItem("UNIQUE_TODO_LIST", JSON.stringify(newTodoList));
+  // localStorage.setItem("UNIQUE_TODO_LIST", JSON.stringify(newTodoList));
+  console.log("In Store.js:\t", userEmail);
+  console.log(newTodoList);
+  addTodoOnFirebase(userEmail, newTodoList);
+
   return newTodoList;
 }
 const countActiveTodo = (todoList) => {

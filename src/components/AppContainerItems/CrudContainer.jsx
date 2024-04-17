@@ -1,24 +1,26 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import InputTodo from "./InputTodo";
 import reducer, { countCompletedTodo } from "../../store/TodoListStore";
 import AllTodoList from "./TodoList";
 import Summary from "./TodoSummary";
 import { countActiveTodo } from "../../store/TodoListStore";
 import WarningMessage from "./WarningMessage";
+import { getTodoFromFirebase, userEmail } from "../../Firebase/Firebase";
 
 const TodoContext = createContext(null);
 
 const CrudContainer = () => {
   const [todoList, dispatchTodoList] = useReducer(reducer, []);
   const [currentDisplay, setCurrentDisplay] = useState("ALL");
-  const [initalRender, setInitialRender] = useState(true);
+  const [initialRender, setInitialRender] = useState(true);
 
-  if (initalRender && localStorage.getItem("UNIQUE_TODO_LIST")) {
-    const newTodoList = JSON.parse(localStorage.getItem("UNIQUE_TODO_LIST"));
-    dispatchTodoList({ name: "LOAD_PREVIOUS_TODO_LIST", payload: newTodoList });
+  useEffect(() => {
+    if (initialRender) {
+      getTodoFromFirebase(userEmail, dispatchTodoList);
 
-    setInitialRender(false);
-  }
+      setInitialRender(false);
+    }
+  }, []);
 
   // localStorage.removeItem("UNIQUE_TODO_LIST");
 
@@ -31,14 +33,14 @@ const CrudContainer = () => {
 
         <>
           {currentDisplay === "ACTIVE" && countActiveTodo(todoList) === 0 && (
-            <WarningMessage message={"'Active'"} />
+            <WarningMessage initialRender={initialRender} />
           )}
           {currentDisplay === "COMPLETED" &&
             countCompletedTodo(todoList) === 0 && (
-              <WarningMessage message={"'Completed'"} />
+              <WarningMessage initialRender={initialRender} />
             )}
           {currentDisplay === "ALL" && todoList.length === 0 && (
-            <WarningMessage />
+            <WarningMessage initialRender={initialRender} />
           )}
           {todoList.length !== 0 && (
             <AllTodoList currentDisplay={currentDisplay} />
