@@ -1,12 +1,22 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   signInUserWithEmailAndPassword,
   signInWithGoogle,
 } from "../Firebase/Firebase";
 
+import { Button } from "@chakra-ui/react";
+
 export default function SignIn({ setCreateAccount }) {
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      setIsLoggingIn(false);
+      console.log("Login Button Changed To Normal");
+    };
+  }, []);
 
   return (
     <div className="flex items-center justify-center h-screen w-full px-5 sm:px-0">
@@ -17,16 +27,7 @@ export default function SignIn({ setCreateAccount }) {
             backgroundImage: `url(https://www.tailwindtap.com//assets/components/form/userlogin/login_tailwindtap.jpg)`,
           }}
         ></div>
-        <form
-          className="w-full p-8 lg:w-1/2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            signInUserWithEmailAndPassword(
-              emailRef.current.value,
-              passwordRef.current.value
-            );
-          }}
-        >
+        <form className="w-full p-8 lg:w-1/2">
           <p className="text-xl text-gray-600 text-center">Welcome back!</p>
           <div className="mt-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -58,12 +59,24 @@ export default function SignIn({ setCreateAccount }) {
             </a> */}
           </div>
           <div className="mt-8">
-            <button
-              className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600"
+            <Button
+              onClick={() => {
+                setIsLoggingIn(true);
+                console.log("logging In.... Not type SUbmit");
+                signInUserWithEmailAndPassword(
+                  emailRef.current.value,
+                  passwordRef.current.value
+                );
+              }}
+              className="w-full"
+              isLoading={isLoggingIn}
+              loadingText="Logging In"
+              colorScheme="blue"
+              variant="solid"
               type="submit"
             >
               Login
-            </button>
+            </Button>
           </div>
           <a
             href="#"

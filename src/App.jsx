@@ -10,7 +10,6 @@ import SignIn from "./SignIn/SignIn";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [createAccount, setCreateAccount] = useState(true);
-  const firebase = useFirebase();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
