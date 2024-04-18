@@ -5,6 +5,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
+  sendEmailVerification,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { getDatabase, ref, set, child, get } from "firebase/database";
 import { createContext, useContext, useState } from "react";
@@ -112,12 +114,27 @@ export async function getTodoFromFirebase(email, dispatchTodoList) {
       alert(error);
     });
 }
+
+export function sendPasswordResetLinkOnMail(email) {
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      alert(" Password reset email sent!");
+      // ..
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
+      // ..
+    });
+}
 export default function FirebaseProvider(props) {
   return (
     <FirbaseContext.Provider
       value={{
         signUpUserWithEmailAndPassword,
         signInUserWithEmailAndPassword,
+        sendPasswordResetLinkOnMail,
         setUserEmail,
         userEmail,
       }}
