@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   sendEmailVerification,
+  sendSignInLinkToEmail,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { getDatabase, ref, set, child, get } from "firebase/database";
@@ -114,7 +115,7 @@ export async function getTodoFromFirebase(email, dispatchTodoList) {
       alert(error);
     });
 }
-
+// console.log("Auth.currentUser:\t", auth.currentUser);
 export function sendPasswordResetLinkOnMail(email) {
   sendPasswordResetEmail(auth, email)
     .then(() => {

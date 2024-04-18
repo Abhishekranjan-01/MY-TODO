@@ -9,6 +9,9 @@ export default {
       },
       fontFamily: {
         poppins: ["poppins", "sans-serif"],
+        pacifico_regula: ["Pacifico", "cursive"],
+        Roboto_Mono: ["Roboto Mono", "monospace"],
+        Kalam_Regular: ["Kalam", "cursive"],
       },
     },
   },
