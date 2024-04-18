@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
@@ -12,16 +11,16 @@ import { createContext, useContext, useState } from "react";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+// web app's Firebase configuration
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "real-time-todo-20643.firebaseapp.com",
-  databaseURL: "https://real-time-todo-20643-default-rtdb.firebaseio.com",
+  databaseURL: import.meta.env.VITE_DATABASE_URL,
   projectId: "real-time-todo-20643",
   storageBucket: "real-time-todo-20643.appspot.com",
-  messagingSenderId: "300774970689",
-  appId: "1:300774970689:web:1d541d6fab99c02a6a3dc0",
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APPID,
 };
 
 // Initialize Firebase
@@ -47,38 +46,42 @@ export const signUpUserWithEmailAndPassword = async (email, password) => {
       console.log(UserCredential);
     })
     .catch((err) => {
-      console.log("Error");
+      console.log("Create Account Error");
       console.log(err);
+      alert(err);
     });
 };
 
 export const signInUserWithEmailAndPassword = async (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((UserCredential) => {
-      console.log("Signed In UserCredential");
-      console.log(UserCredential);
+      // console.log("Signed In UserCredential");
+      // console.log(UserCredential);
     })
     .catch((reason) => {
-      console.log(reason);
+      console.log(reason.message);
+      console.dir(reason);
+      alert(reason);
     });
 };
 
 export function signInWithGoogle() {
   signInWithPopup(auth, googleAuthProvider)
     .then((result) => {
-      console.log(result.user);
-      console.log(getAdditionalUserInfo(result));
+      // console.log(result.user);
+      // console.log(getAdditionalUserInfo(result));
       // IdP data available using getAdditionalUserInfo(result)
       // ...
     })
     .catch((error) => {
       // Handle Errors here.
-      const errorCode = error.code;
+      // const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(errorMessage);
       // The email of the user's account used.
-      const email = error.customData.email;
+      // const email = error.customData.email;
       // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
+      // const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
     });
 }
@@ -99,20 +102,17 @@ export async function getTodoFromFirebase(email, dispatchTodoList) {
           name: "LOAD_PREVIOUS_TODO_LIST",
           payload: todoOnFirebase,
         });
-        console.log(todoOnFirebase);
-        // return await snapshot.val();
       } else {
         console.log("Data Not Exist !!");
-        console.log(userEmail);
-        // return [];
+        // console.log(userEmail);
       }
     })
     .catch((error) => {
-      console.error(error);
+      console.dir(error);
+      alert(error);
     });
 }
 export default function FirebaseProvider(props) {
-  // const [userEmail, setUserEmail] = useState("");
   return (
     <FirbaseContext.Provider
       value={{
