@@ -84,10 +84,7 @@ export default function SignUp({ setCreateAccount }) {
                 Sign Up
               </Button>
             </div>
-            <a
-              href="#"
-              className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
-            >
+            <h2 className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
               <button
                 type="button"
                 className="flex px-5 justify-center w-full py-3"
@@ -119,7 +116,7 @@ export default function SignUp({ setCreateAccount }) {
                   </h1>
                 </div>
               </button>
-            </a>
+            </h2>
             <div className="mt-4 flex items-center w-full text-center">
               <a
                 href="#"
