@@ -1,4 +1,4 @@
-import { addTodoOnFirebase, userEmail } from "../Firebase/Firebase";
+import { addTodoOnFirebase, getUserEmail } from "../Firebase/Firebase";
 
 const addTodo = (todoList, action) => {
   return [action.payload, ...todoList];
@@ -44,9 +44,8 @@ function reducer(todoList, action) {
     newTodoList = action.payload;
   }
   // localStorage.setItem("UNIQUE_TODO_LIST", JSON.stringify(newTodoList));
-  console.log("In Store.js:\t", userEmail);
-  console.log(newTodoList);
-  addTodoOnFirebase(userEmail, newTodoList);
+
+  addTodoOnFirebase(getUserEmail().replaceAll(".", "_"), newTodoList);
 
   return newTodoList;
 }

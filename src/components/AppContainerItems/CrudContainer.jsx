@@ -5,7 +5,7 @@ import AllTodoList from "./TodoList";
 import Summary from "./TodoSummary";
 import { countActiveTodo } from "../../store/TodoListStore";
 import WarningMessage from "./WarningMessage";
-import { getTodoFromFirebase, userEmail } from "../../Firebase/Firebase";
+import { getTodoFromFirebase, getUserEmail } from "../../Firebase/Firebase";
 
 const TodoContext = createContext(null);
 
@@ -16,7 +16,7 @@ const CrudContainer = () => {
 
   useEffect(() => {
     if (initialRender) {
-      getTodoFromFirebase(userEmail, dispatchTodoList);
+      getTodoFromFirebase(getUserEmail(), dispatchTodoList);
 
       setInitialRender(false);
     }

@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { auth } from "../Firebase/Firebase";
+import { auth } from "../../Firebase/Firebase";
 
 const BackgroundContainer = () => {
   return (

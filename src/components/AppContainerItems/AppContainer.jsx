@@ -1,4 +1,4 @@
-import TodoBanner from "../TodoBanner";
+import TodoBanner from "./TodoBanner";
 import CrudContainer from "./CrudContainer";
 
 const AppContainer = () => {

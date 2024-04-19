@@ -5,8 +5,6 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
-  sendEmailVerification,
-  sendSignInLinkToEmail,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { getDatabase, ref, set, child, get } from "firebase/database";
@@ -37,10 +35,12 @@ const googleAuthProvider = new GoogleAuthProvider();
 
 const FirbaseContext = createContext(null);
 export const useFirebase = () => useContext(FirbaseContext);
-export let userEmail = null;
+let userEmail = null;
 export const setUserEmail = (email) => {
   userEmail = email;
-  console.log(userEmail);
+};
+export const getUserEmail = () => {
+  return userEmail;
 };
 export const signUpUserWithEmailAndPassword = async (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
@@ -137,7 +137,7 @@ export default function FirebaseProvider(props) {
         signInUserWithEmailAndPassword,
         sendPasswordResetLinkOnMail,
         setUserEmail,
-        userEmail,
+        getUserEmail,
       }}
     >
       {props.children}

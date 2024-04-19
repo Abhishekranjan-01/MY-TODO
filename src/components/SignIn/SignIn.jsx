@@ -7,6 +7,7 @@ import {
 
 import { Button } from "@chakra-ui/react";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import AppName from "../AppName/AppName";
 
 export default function SignIn({ setCreateAccount }) {
   const emailRef = useRef("");
@@ -15,22 +16,9 @@ export default function SignIn({ setCreateAccount }) {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
 
-  const firebase = useFirebase();
-
-  useEffect(() => {
-    console.log("Isl Changed!!", isLoggingIn);
-
-    return () => {
-      setIsLoggingIn(false);
-      console.log("Login Button Changed To Normal");
-    };
-  }, []);
-
   return (
-    <main className="h-screen flex flex-col gap-4 sm:gap-8 py-8">
-      <h1 className="text-center text-3xl sm:text-6xl font-semibold font-Kalam_Regular text-pink-600 ">
-        Real Time Todo
-      </h1>
+    <section>
+      <AppName />
       <div className="flex items-center justify-center  w-full px-5 sm:px-0">
         <div className="flex bg-white rounded-lg shadow-lg border overflow-hidden max-w-sm lg:max-w-4xl w-full">
           <div
@@ -78,34 +66,24 @@ export default function SignIn({ setCreateAccount }) {
               </div>
               <div className="mt-8">
                 <Button
-                  onClick={() => {
-                    setIsLoggingIn(true);
-                    console.log("logging In.... Not type SUbmit");
-                    signInUserWithEmailAndPassword(
-                      emailRef.current.value,
-                      passwordRef.current.value
-                    );
-                    console.log("After That:\t", isLoggingIn);
-                    setTimeout(() => {
-                      console.log("In TimeOUt:\t", isLoggingIn);
-                      if (isLoggingIn) {
-                        setIsLoggingIn(false);
-                        console.log("Still LoggingIn..., Now Set to False");
-                      } else {
-                        console.log(
-                          "Else LoggingIn..., Now Set to False:\t",
-                          isLoggingIn
-                        );
-                        setIsLoggingIn(false);
-                      }
-                    }, 10000);
-                  }}
                   className="w-full"
                   isLoading={isLoggingIn}
                   loadingText="Logging In"
                   colorScheme="blue"
                   variant="solid"
                   type="submit"
+                  onClick={() => {
+                    setIsLoggingIn(true);
+
+                    signInUserWithEmailAndPassword(
+                      emailRef.current.value,
+                      passwordRef.current.value
+                    );
+
+                    setTimeout(() => {
+                      setIsLoggingIn(false);
+                    }, 5500);
+                  }}
                 >
                   Login
                 </Button>
@@ -168,6 +146,6 @@ export default function SignIn({ setCreateAccount }) {
           )}
         </div>
       </div>
-    </main>
+    </section>
   );
 }
