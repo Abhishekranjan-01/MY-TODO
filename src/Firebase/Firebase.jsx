@@ -4,11 +4,12 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  getRedirectResult,
   sendPasswordResetEmail,
+  signInWithRedirect,
 } from "firebase/auth";
 import { getDatabase, ref, set, child, get } from "firebase/database";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,7 +31,7 @@ export const auth = getAuth(firebaseApp);
 const database = getDatabase(firebaseApp);
 const googleAuthProvider = new GoogleAuthProvider();
 // googleAuthProvider.addScope(
-//   "https://www.googleapis.com/auth/contacts.readonly"
+//   "user_signUp"
 // );
 
 const FirbaseContext = createContext(null);
@@ -68,9 +69,12 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
     });
 };
 
-export function signInWithGoogle() {
-  signInWithPopup(auth, googleAuthProvider)
+export async function signInWithGoogle() {
+  console.log("Button CLicked On SIgnup WIht Google Detected !!");
+  await signInWithRedirect(auth, googleAuthProvider);
+  getRedirectResult(auth)
     .then((result) => {
+      // console.log(result);
       // console.log(result.user);
       // console.log(getAdditionalUserInfo(result));
       // IdP data available using getAdditionalUserInfo(result)
@@ -81,6 +85,7 @@ export function signInWithGoogle() {
       // const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorMessage);
+      alert(errorMessage);
       // The email of the user's account used.
       // const email = error.customData.email;
       // The AuthCredential type that was used.
