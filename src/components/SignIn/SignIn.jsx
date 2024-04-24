@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useRef, useState } from "react";
 import {
   signInUserWithEmailAndPassword,
   signInWithGoogle,
-  useFirebase,
 } from "../../Firebase/Firebase";
 
-import { Button } from "@chakra-ui/react";
-import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import { Button, Progress } from "@chakra-ui/react";
+// import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import AppName from "../AppName/AppName";
+
+const ForgotPassword = lazy(() => import("../ForgotPassword/ForgotPassword"));
 
 export default function SignIn({ setCreateAccount }) {
   const emailRef = useRef("");
@@ -28,7 +29,9 @@ export default function SignIn({ setCreateAccount }) {
             }}
           ></div>
           {resetPassword ? (
-            <ForgotPassword setResetPassword={setResetPassword} />
+            <Suspense fallback={<Progress size={"md"} isIndeterminate />}>
+              <ForgotPassword setResetPassword={setResetPassword} />
+            </Suspense>
           ) : (
             <form className="w-full p-8 lg:w-1/2">
               <p className="text-xl text-gray-600 text-center">Welcome back!</p>
